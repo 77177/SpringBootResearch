@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  core:
+    container_name: core
+    build:
+      context: .
+    ports:
+      - 8080:9090
+    depends_on:
+      - db
+
+  db:
+    image: postgres:10
+    environment:
+      - POSTGRES_USER=sa
+      - POSTGRES_PASSWORD=sa
+      - POSTGRES_DB=database
+
