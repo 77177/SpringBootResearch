@@ -1,2 +1,2 @@
 # SpringBootResearch
-SpringBoot+Docker+RestAssured+PostgreSQL
+SpringBoot+DockerCompose+RestAssured+PostgreSQL
