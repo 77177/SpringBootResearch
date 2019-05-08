@@ -16,8 +16,6 @@ public class MyFilter implements Filter {
         System.out.println("before");
         filterChain.doFilter(servletRequest, servletResponse);
         System.out.println("after");
-
-
     }
 
     @Override
