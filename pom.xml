@@ -18,6 +18,8 @@
         <SecurityVersion>1.5.2.RELEASE</SecurityVersion>
         <GsonVersion>2.8.5</GsonVersion>
         <CompilerPluginVersion>3.8.0</CompilerPluginVersion>
+        <LiquidBaseVersion>3.4.1</LiquidBaseVersion>
+        <SwaggerUIVersion>2.7.0</SwaggerUIVersion>
     </properties>
 
     <parent>
@@ -61,6 +63,21 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${SwaggerUIVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${LiquidBaseVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${SwaggerUIVersion}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>

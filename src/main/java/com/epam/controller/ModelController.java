@@ -3,6 +3,10 @@ package com.epam.controller;
 import com.epam.model.Model;
 import com.epam.modeldto.ModelDto;
 import com.epam.service.ModelService;
+import com.fasterxml.jackson.annotation.JacksonAnnotation;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +35,7 @@ public class ModelController {
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public Iterable<Model> getModels(){
+    public Iterable<Model> getModels() {
         return modelService.getAll();
     }
 }

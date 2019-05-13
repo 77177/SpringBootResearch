@@ -12,4 +12,5 @@ import lombok.Setter;
 public class ModelDto {
     private long id;
     private String text;
+
 }

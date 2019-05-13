@@ -63,8 +63,8 @@ public class ModelServiceTest {
 
     @Test
     public void getAll() {
-        Model firstModel = new Model(1, "one");
-        Model secondModel = new Model(2, "two");
+        Model firstModel = new Model( 1L, "one");
+        Model secondModel = new Model( 2L, "two");
 
         Iterable<Model> modelsFromRepo = Arrays.asList(firstModel, secondModel);
 

@@ -12,11 +12,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.sql.DataSource;
 
 @EnableWebSecurity
+@EnableSwagger2
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    private static final String[] AUTH_WHITELIST = {
+
+            // -- swagger ui
+            "/swagger-resources/**",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
 
     final private DataSource dataSource;
 
@@ -36,12 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/model/*")
-                .hasAnyRole("USER")
-                .and().formLogin()
-                .defaultSuccessUrl("/model/all")
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers(new String[]{"/model/*", "/swagger-ui.html/**"}).hasAnyRole("USER")
                 .and()
-                .addFilterBefore(new MyFilter(), WebAsyncManagerIntegrationFilter.class).csrf().disable();
+                .formLogin()
+                .defaultSuccessUrl("/model/all")
+                .and().csrf().disable();
+
+        http.headers().frameOptions().disable();
     }
 
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

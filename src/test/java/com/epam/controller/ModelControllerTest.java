@@ -29,7 +29,7 @@ public class ModelControllerTest {
 
     @Test
     public void postModel() {
-        Model modelFromService = new Model(1, "text");
+        Model modelFromService = new Model( 1L, "text");
         ModelDto modelDtoForService = new ModelDto(0, "text");
 
         doReturn(modelFromService).when(modelService).post(modelDtoForService);
@@ -40,7 +40,7 @@ public class ModelControllerTest {
 
     @Test
     public void getModel() {
-        Model modelFromDatabase = new Model(1, "text");
+        Model modelFromDatabase = new Model( 1L, "text");
 
         doReturn(modelFromDatabase).when(modelService).get(1L);
 
@@ -50,8 +50,8 @@ public class ModelControllerTest {
 
     @Test
     public void getModels() {
-        Model firstModel = new Model(1, "one");
-        Model secondModel = new Model(2, "two");
+        Model firstModel = new Model( 1L, "one");
+        Model secondModel = new Model( 2L, "two");
 
         Iterable<Model> modelsFromService = Arrays.asList(firstModel, secondModel);
         doReturn(modelsFromService).when(modelService).getAll();

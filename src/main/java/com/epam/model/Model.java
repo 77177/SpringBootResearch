@@ -2,25 +2,33 @@ package com.epam.model;
 
 import com.epam.modeldto.ModelDto;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Table(name = "models")
 public class Model {
+
+    public Model(Long id, String text) {
+        this.id = id;
+        this.text = text;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String text;
+
+    @OneToMany(mappedBy = "model")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    Set<SubModel> subModelSet = new HashSet<>();
 
     public Model(ModelDto modelDto) {
         this.id = modelDto.getId();

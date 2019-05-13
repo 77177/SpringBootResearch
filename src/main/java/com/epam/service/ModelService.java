@@ -2,6 +2,7 @@ package com.epam.service;
 
 import com.epam.converter.Converter;
 import com.epam.model.Model;
+import com.epam.model.SubModel;
 import com.epam.modeldto.ModelDto;
 import com.epam.repo.ModelRepo;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class ModelService {
         this.converter = converter;
     }
 
-    public Model post(ModelDto modelDto){
+    public Model post(ModelDto modelDto) {
         Model modelToPersist = converter.convertToModel(modelDto);
         return modelRepo.save(modelToPersist);
     }
@@ -31,5 +32,15 @@ public class ModelService {
 
     public Iterable<Model> getAll() {
         return modelRepo.findAll();
+    }
+
+    public void add() {
+        Model model = new Model(-1L, "text");
+        SubModel subModel = new SubModel();
+        model.setId(0);
+        subModel.setLever(true);
+        subModel.setModel(model);
+        model.getSubModelSet().add(subModel);
+        modelRepo.save(model);
     }
 }
