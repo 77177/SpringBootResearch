@@ -1,0 +1,56 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="0" author="Stas">
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true" startWith="0"/>
+            <column name="username" type="varchar(40)"/>
+            <column name="password" type="varchar(200)"/>
+            <column name="role" type="varchar(40)"/>
+            <column name="enabled" type="boolean"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1" author="Stas">
+        <insert tableName="users">
+            <column name="username" value="username"/>
+            <column name="password" value="$2a$10$m0t1gV3J8biNhEF5VZRq6em4b02cQZmULOfXJLd/2TA0tt07BVhke"/>
+            <column name="role" value="ROLE_USER"/>
+            <column name="enabled" value="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Stas">
+        <createTable tableName="models">
+            <column name="id" type="bigint" autoIncrement="true" startWith="0"/>
+            <column name="text" type="varchar(40)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Stas">
+        <insert tableName="models">
+            <column name="text" value="text"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4" author="Stas">
+        <createTable tableName="submodels">
+            <column name="id" type="bigint" autoIncrement="true" startWith="0"/>
+            <column name="lever" type="boolean"/>
+            <column name="model" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="submodels" baseColumnNames="model" constraintName="sub"
+                                 referencedTableName="models"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="5" author="Stas">
+        <insert tableName="submodels">
+            <column name="lever" value="true"/>
+            <column name="model" value="0"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
