@@ -20,15 +20,6 @@ import javax.sql.DataSource;
 @EnableSwagger2
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-    private static final String[] AUTH_WHITELIST = {
-
-            // -- swagger ui
-            "/swagger-resources/**",
-            "/v2/api-docs",
-            "/webjars/**"
-    };
-
     final private DataSource dataSource;
 
     public SecurityConfig(DataSource dataSource) {
@@ -47,8 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers(new String[]{"/model/*", "/swagger-ui.html/**"}).hasAnyRole("USER")
+                .antMatchers("/model/*", "/swagger-ui.html/**").hasAnyRole("USER")
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/model/all")
