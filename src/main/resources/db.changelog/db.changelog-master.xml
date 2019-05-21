@@ -42,7 +42,9 @@
             <column name="lever" type="boolean"/>
             <column name="model" type="bigint"/>
         </createTable>
-        <addForeignKeyConstraint baseTableName="submodels" baseColumnNames="model" constraintName="sub"
+        <addForeignKeyConstraint baseTableName="submodels"
+                                 baseColumnNames="model"
+                                 constraintName="sub"
                                  referencedTableName="models"
                                  referencedColumnNames="id"/>
     </changeSet>
