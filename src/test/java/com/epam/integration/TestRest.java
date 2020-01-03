@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
@@ -24,6 +25,7 @@ import java.util.Collections;
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = Main.class)
+@ActiveProfiles(value = {"local"})
 public class TestRest {
 
     @LocalServerPort
@@ -34,6 +36,8 @@ public class TestRest {
     @Before
     public void Setup() {
         RestAssured.port = portNumber;
+        RestAssured.baseURI = "https://localhost";
+        RestAssured.useRelaxedHTTPSValidation();
         gson = new Gson();
         FormAuthScheme formAuthScheme = new FormAuthScheme();
         formAuthScheme.setUserName("username");
@@ -50,11 +54,13 @@ public class TestRest {
 
         RestAssured.given().contentType("application/json")
                 .body(modelDto)
+                .and()
                 .post("/model/")
                 .then()
                 .statusCode(200);
 
         RestAssured.given().contentType("application/json")
+                .and()
                 .get("/model/1")
                 .then()
                 .body("id", Matchers.is(1))
@@ -64,7 +70,7 @@ public class TestRest {
         RestAssured.given().contentType("application/json")
                 .get("/model/all")
                 .then()
-                .body("", Matchers.hasSize(1))
+                .body("", Matchers.hasSize(2))
                 .and()
                 .statusCode(200);
     }

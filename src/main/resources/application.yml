@@ -1,10 +1,9 @@
 server:
-  context-path: /app
   port: 8443
   ssl:
     key-alias: domain
-    key-store-type: JKS
-    key-store: classpath:keys.jks
+    key-store-type: PKCS12
+    key-store: classpath:keys.p12
     key-store-password: password
 
 spring:
@@ -16,9 +15,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     properties:
       dialect: org.hibernate.dialect.PostgreSQLDialect
 
 security:
   require-ssl: true
+
+liquibase:
+  change-log: classpath:db.changelog/db.changelog-master.xml

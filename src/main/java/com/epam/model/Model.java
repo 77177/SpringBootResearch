@@ -1,6 +1,7 @@
 package com.epam.model;
 
 import com.epam.modeldto.ModelDto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
@@ -28,6 +29,7 @@ public class Model {
 
     @OneToMany(mappedBy = "model")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JsonManagedReference
     Set<SubModel> subModelSet = new HashSet<>();
 
     public Model(ModelDto modelDto) {
